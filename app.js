@@ -13,7 +13,9 @@ var board = [];
 let data = JSON.stringify({
   turn: `NEW`,
 });
+var chances = [];
 fs.writeFileSync("lastTurn.json", data);
+fs.writeFileSync("allTurns.json", data);
 
 var board = [];
 function setupBoard() {
@@ -63,6 +65,8 @@ app.get("/:playerId/:columndId", function (req, res) {
         var currentPlayer = player;
         console.log("Player " + currentPlayer + "'s turn : ");
         handleTurn(currentPlayer, column);
+        chances.push({ player: currentPlayer, columnPlayed: column });
+        fs.writeFileSync("allTurns.json", JSON.stringify(chances));
         checkIfGameIsOver(currentPlayer);
       }
 
@@ -149,7 +153,7 @@ app.get("/:playerId/:columndId", function (req, res) {
       }
       playGame(player, column);
       if (!isGameOver) {
-        res.send(`${player} chance over. Next Turn`);
+        res.send(`${player} chance over. Next Turn.`);
       }
     }
   } else {
@@ -157,6 +161,10 @@ app.get("/:playerId/:columndId", function (req, res) {
   }
 });
 
+app.get("/history", (req, res) => {
+  let history = JSON.parse(fs.readFileSync("allTurns.json"));
+  res.send(history);
+});
 if (port == null || port == "") {
   port = 3000;
 }

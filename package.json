@@ -1,0 +1,17 @@
+{
+  "name": "uddeshya.connect4",
+  "version": "1.0.0",
+  "description": "This is a connect 4 backend for Pratilipi Backend Challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Uddeshya Agrawal",
+  "license": "ISC",
+  "dependencies": {
+    "connect-four": "0.0.6",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security"
+  }
+}
